@@ -2,15 +2,17 @@
   "name": "ts-tracer",
   "version": "0.0.1",
   "description": "A ray tracer created with the \"Ray Tracer Challenge\" book, written in TypeScript.",
-  "main": "app.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mfarr/ts-tracer.git"
   },
-  "author": "Mike Farr <mike@mfarr.dev>",
+  "author": "Mike Farr <mike@noneleft.ca>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mfarr/ts-tracer/issues"
