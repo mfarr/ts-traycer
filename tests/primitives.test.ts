@@ -1,4 +1,11 @@
-import { Point, Tuple, Vector, isPoint, isVector } from "../src/app/primitives";
+import {
+  Point,
+  Tuple,
+  Vector,
+  add,
+  isPoint,
+  isVector,
+} from "../src/app/primitives";
 
 test("vector should have 0 value for w field", () => {
   const v = new Vector(4.3, -4.2, 3.1);
@@ -56,4 +63,26 @@ test("equalTo should return false if tuples are not equal", () => {
   const equal = t1.equalTo(t2);
 
   expect(equal).toBeFalsy();
+});
+
+test("adding two vectors should return correct results", () => {
+  const v1 = new Vector(1, 1, 1);
+  const v2 = new Vector(2, 2, 2);
+  const expected = new Vector(3, 3, 3);
+
+  const sum = add(v1, v2);
+
+  expect(sum).toBeInstanceOf(Vector);
+  expect(sum.equalTo(expected)).toBeTruthy();
+});
+
+test("adding a point to a vector should return correct results", () => {
+  const p = new Point(1, 1, 1);
+  const v = new Vector(2, 2, 2);
+  const expected = new Point(3, 3, 3);
+
+  const sum = add(p, v);
+
+  expect(sum).toBeInstanceOf(Point);
+  expect(sum.equalTo(expected)).toBeTruthy();
 });
