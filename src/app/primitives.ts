@@ -44,12 +44,31 @@ export function isVector(t: Tuple): boolean {
   return t.w === 0;
 }
 
-export function add(p: Point | Vector, v: Vector): Point | Vector {
-  const x = p.x + v.x;
-  const y = p.y + v.y;
-  const z = p.z + v.z;
+export function add(t1: Tuple, t2: Tuple): Point | Vector {
+  const x = t1.x + t2.x;
+  const y = t1.y + t2.y;
+  const z = t1.z + t2.z;
 
-  if (p instanceof Point) {
+  if (isPoint(t1)) {
+    return new Point(x, y, z);
+  }
+
+  return new Vector(x, y, z);
+}
+
+export function subtract(t1: Tuple, t2: Tuple): Point | Vector {
+  const x = t1.x - t2.x;
+  const y = t1.y - t2.y;
+  const z = t1.z - t2.z;
+  const w = t1.w - t2.w;
+
+  if (w !== 0 && w !== 1) {
+    throw new Error("Subtraction would result in an invalid coordinate.");
+  }
+
+  const t = new Tuple(x, y, z, w as 0 | 1);
+
+  if (isPoint(t)) {
     return new Point(x, y, z);
   }
 
