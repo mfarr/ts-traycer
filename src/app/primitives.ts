@@ -1,76 +1,60 @@
-export class Tuple {
-  x: number;
-  y: number;
-  z: number;
-  readonly w: 0 | 1;
-
-  constructor(x = 0, y = 0, z = 0, w: 0 | 1 = 0) {
-    this.x = x;
-
-    this.y = y;
-
-    this.z = z;
-
-    this.w = w;
-  }
-
-  equalTo(t: Tuple): boolean {
-    return this.x === t.x && this.y === t.y && this.z === t.z && this.w === t.w;
-  }
-}
-
-export class Point extends Tuple {
-  // This works, but it feels like there should be a better way to go about it.
+export class Point {
   readonly w = 1;
 
-  constructor(x = 0, y = 0, z = 0) {
-    super(x, y, z, 1);
-  }
+  constructor(public x = 0, public y = 0, public z = 0) {}
 }
 
-export class Vector extends Tuple {
+export class Vector {
   readonly w = 0;
 
-  constructor(x = 0, y = 0, z = 0) {
-    super(x, y, z, 0);
+  constructor(public x = 0, public y = 0, public z = 0) {}
+}
+
+export type Coordinate = Point | Vector;
+export type CoordinateType<T> = T extends Point
+  ? Point
+  : T extends Vector
+  ? Vector
+  : never;
+
+export function isPoint(c: Coordinate): boolean {
+  return c.w === 1;
+}
+
+export function isVector(c: Coordinate): boolean {
+  return c.w === 0;
+}
+
+export function add(c1: Coordinate, c2: Coordinate): Coordinate {
+  const x = c1.x + c2.x;
+  const y = c1.y + c2.y;
+  const z = c1.z + c2.z;
+  const w = c1.w + c2.w;
+
+  if (w !== 0 && w !== 1) {
+    throw new Error("Addition would result in an invalid coordinate.");
   }
+
+  return w === 0 ? new Vector(x, y, x) : new Point(x, y, z);
 }
 
-export function isPoint(t: Tuple): boolean {
-  return t.w === 1;
-}
-
-export function isVector(t: Tuple): boolean {
-  return t.w === 0;
-}
-
-export function add(t1: Tuple, t2: Tuple): Point | Vector {
-  const x = t1.x + t2.x;
-  const y = t1.y + t2.y;
-  const z = t1.z + t2.z;
-
-  if (isPoint(t1)) {
-    return new Point(x, y, z);
-  }
-
-  return new Vector(x, y, z);
-}
-
-export function subtract(t1: Tuple, t2: Tuple): Point | Vector {
-  const x = t1.x - t2.x;
-  const y = t1.y - t2.y;
-  const z = t1.z - t2.z;
-  const w = t1.w - t2.w;
+export function subtract(c1: Coordinate, c2: Coordinate): Coordinate {
+  const x = c1.x - c2.x;
+  const y = c1.y - c2.y;
+  const z = c1.z - c2.z;
+  const w = c1.w - c2.w;
 
   if (w !== 0 && w !== 1) {
     throw new Error("Subtraction would result in an invalid coordinate.");
   }
 
-  const t = new Tuple(x, y, z, w as 0 | 1);
-
-  if (isPoint(t)) {
-    return new Point(x, y, z);
-  }
-
-  return new Vector(x, y, z);
+  return w === 0 ? new Vector(x, y, z) : new Point(x, y, z);
 }
+
+export function equal(c1: Coordinate, c2: Coordinate): boolean {
+  return c1.x === c2.x && c1.y === c2.y && c1.z === c2.z && c1.w === c2.w;
+}
+
+// export function negate<T extends Coordinate>(t: T): CoordinateType<T> {
+//   return new { -t.x, -t.y, -t.z } as CoordinateType<T>;
+// }
