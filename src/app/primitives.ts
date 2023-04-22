@@ -55,6 +55,6 @@ export function equal(c1: Coordinate, c2: Coordinate): boolean {
   return c1.x === c2.x && c1.y === c2.y && c1.z === c2.z && c1.w === c2.w;
 }
 
-// export function negate<T extends Coordinate>(t: T): CoordinateType<T> {
-//   return new { -t.x, -t.y, -t.z } as CoordinateType<T>;
-// }
+export function negate<T extends Coordinate>(t: T): Coordinate {
+  return t.w === 0 ? new Vector(-t.x, -t.y, -t.z) : new Point(-t.x, -t.y, -t.z);
+}

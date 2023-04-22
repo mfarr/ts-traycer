@@ -6,6 +6,7 @@ import {
   isVector,
   subtract,
   equal,
+  negate,
 } from "../src/app/primitives";
 
 test("vector should have 0 value for w field", () => {
@@ -143,3 +144,25 @@ test("adding two points should throw an error", () => {
     "Addition would result in an invalid coordinate."
   );
 });
+
+test("negating a point should return resulting point", () => {
+  const p = new Point(1, 1, 1);
+  const expected = new Point(-1, -1, -1);
+
+  const negated = negate(p);
+  const eq = equal(negated, expected);
+
+  expect(negated).toBeInstanceOf(Point);
+  expect(eq).toBeTruthy();
+});
+
+test("negating a vector should return resulting vector", () => {
+  const v = new Vector(2, 2, 2);
+  const expected = new Vector(-2, -2, -2);
+
+  const negated = negate(v);
+  const eq = equal(negated, expected);
+
+  expect(negated).toBeInstanceOf(Vector);
+  expect(eq).toBeTruthy();
+})
