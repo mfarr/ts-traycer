@@ -7,7 +7,12 @@ import {
   subtract,
   equal,
   negate,
+  multiply,
+  divide,
 } from "../src/app/primitives";
+
+const v = new Vector(1, -2, 3);
+const p = new Point(1, -2, 3);
 
 test("vector should have 0 value for w field", () => {
   const v: Vector = { x: 4.3, y: -4.2, z: 3.1, w: 0 };
@@ -165,4 +170,48 @@ test("negating a vector should return resulting vector", () => {
 
   expect(negated).toBeInstanceOf(Vector);
   expect(eq).toBeTruthy();
-})
+});
+
+test("multiplying a vector by a scalar should return the resulting vector", () => {
+  const expected = new Vector(3.5, -7, 10.5);
+
+  const multiplied = multiply(v, 3.5);
+  const eq = equal(multiplied, expected);
+
+  expect(multiplied).toBeInstanceOf(Vector);
+  expect(eq).toBeTruthy();
+});
+
+test("multiplying a point by a scalar should return the resulting point", () => {
+  const expected = new Point(3.5, -7, 10.5);
+
+  const multiplied = multiply(p, 3.5);
+  const eq = equal(multiplied, expected);
+
+  expect(multiplied).toBeInstanceOf(Point);
+  expect(eq).toBeTruthy();
+});
+
+test("dividing a point by a scalar should return the resulting point", () => {
+  const expected = new Point(0.5, -1, 1.5);
+
+  const divided = divide(p, 2);
+  const eq = equal(divided, expected);
+
+  expect(divided).toBeInstanceOf(Point);
+  expect(eq).toBeTruthy();
+});
+
+test("dividing a vector by a scalar should return the resulting vector", () => {
+  const expected = new Vector(0.5, -1, 1.5);
+
+  const divided = divide(v, 2);
+  const eq = equal(divided, expected);
+
+  expect(divided).toBeInstanceOf(Vector);
+  expect(eq).toBeTruthy();
+});
+
+test("dividing by zero should throw an error", () => {
+  expect(() => divide(v, 0)).toThrowError("Coordinate divide by zero error.");
+});

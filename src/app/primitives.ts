@@ -11,11 +11,6 @@ export class Vector {
 }
 
 export type Coordinate = Point | Vector;
-export type CoordinateType<T> = T extends Point
-  ? Point
-  : T extends Vector
-  ? Vector
-  : never;
 
 export function isPoint(c: Coordinate): boolean {
   return c.w === 1;
@@ -57,4 +52,24 @@ export function equal(c1: Coordinate, c2: Coordinate): boolean {
 
 export function negate<T extends Coordinate>(c: T): Coordinate {
   return c.w === 0 ? new Vector(-c.x, -c.y, -c.z) : new Point(-c.x, -c.y, -c.z);
+}
+
+export function multiply<T extends Coordinate>(c: T, f: number): Coordinate {
+  if (isPoint(c)) {
+    return new Point(c.x * f, c.y * f, c.z * f);
+  }
+
+  return new Vector(c.x * f, c.y * f, c.z * f);
+}
+
+export function divide<T extends Coordinate>(c: T, d: number): Coordinate {
+  if (d === 0) {
+    throw new Error("Coordinate divide by zero error.");
+  }
+
+  if (isPoint(c)) {
+    return new Point(c.x / d, c.y / d, c.z / d);
+  }
+
+  return new Vector(c.x / d, c.y / d, c.z / d);
 }
