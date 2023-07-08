@@ -11,11 +11,6 @@ export class Vector {
 }
 
 export type Coordinate = Point | Vector;
-export type CoordinateType<T> = T extends Point
-  ? Point
-  : T extends Vector
-  ? Vector
-  : never;
 
 export function isPoint(c: Coordinate): boolean {
   return c.w === 1;
@@ -57,4 +52,58 @@ export function equal(c1: Coordinate, c2: Coordinate): boolean {
 
 export function negate<T extends Coordinate>(c: T): Coordinate {
   return c.w === 0 ? new Vector(-c.x, -c.y, -c.z) : new Point(-c.x, -c.y, -c.z);
+}
+
+export function multiply<T extends Coordinate>(c: T, f: number): Coordinate {
+  if (isPoint(c)) {
+    return new Point(c.x * f, c.y * f, c.z * f);
+  }
+
+  return new Vector(c.x * f, c.y * f, c.z * f);
+}
+
+export function divide<T extends Coordinate>(c: T, d: number): Coordinate {
+  if (d === 0) {
+    throw new Error("Coordinate divide by zero error.");
+  }
+
+  if (isPoint(c)) {
+    return new Point(c.x / d, c.y / d, c.z / d);
+  }
+
+  return new Vector(c.x / d, c.y / d, c.z / d);
+}
+
+export function magnitude(v: Vector): number {
+  let magnitude = 0;
+
+  const sum = v.x ** 2 + v.y ** 2 + v.z ** 2 + v.w ** 2;
+  magnitude = Math.sqrt(sum);
+
+  return magnitude;
+}
+
+export function dot(v1: Vector, v2: Vector): number {
+  const dp = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+
+  return dp;
+}
+
+export function cross(v1: Vector, v2: Vector): Vector {
+  const cp = new Vector(
+    v1.y * v2.z - v1.z * v2.y,
+    v1.z * v2.x - v1.x * v2.z,
+    v1.x * v2.y - v1.y * v2.x
+  );
+
+  return cp;
+}
+
+export function normalize(v: Vector): Vector {
+  const m = magnitude(v);
+  if (m === 0) {
+    throw new Error("Can't normalize a vector with 0 magnitude.");
+  }
+
+  return new Vector(v.x / m, v.y / m, v.z / m);
 }
