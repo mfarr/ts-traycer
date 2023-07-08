@@ -1,4 +1,3 @@
-import exp from "constants";
 import {
   Point,
   Vector,
@@ -13,6 +12,7 @@ import {
   magnitude,
   dot,
   cross,
+  normalize,
 } from "../src/app/primitives";
 
 const v = new Vector(1, -2, 3);
@@ -269,4 +269,48 @@ test("cross should return the cross product of two vectors", () => {
   const eq = equal(cp, expected);
 
   expect(eq).toBeTruthy();
+});
+
+test("normalizing Vector(4, 0, 0) should return Vector(1, 0, 0)", () => {
+  const expected = new Vector(1, 0, 0);
+
+  const v = new Vector(4, 0, 0);
+
+  const n = normalize(v);
+
+  const eq = equal(n, expected);
+
+  expect(eq).toBeTruthy();
+});
+
+test("normalizing Vector(1, 2, 3) should return correct value", () => {
+  const expected = new Vector(0.26726, 0.53452, 0.80178);
+
+  const v = new Vector(1, 2, 3);
+
+  const n = normalize(v);
+
+  expect(n.x).toBeCloseTo(expected.x);
+  expect(n.y).toBeCloseTo(expected.y);
+  expect(n.z).toBeCloseTo(expected.z);
+});
+
+test("normalizing a vector should result in vector with magnitude of 1", () => {
+  const expected = 1;
+
+  const v = new Vector(1, 2, 3);
+
+  const n = normalize(v);
+
+  const m = magnitude(n);
+
+  expect(m).toBe(expected);
+});
+
+test("normalizing a vector with magnitude of 0 should throw an error", () => {
+  const v = new Vector(0, 0, 0);
+
+  expect(() => {
+    normalize(v);
+  }).toThrowError("Can't normalize a vector with 0 magnitude.");
 });

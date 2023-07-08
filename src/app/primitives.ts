@@ -98,3 +98,12 @@ export function cross(v1: Vector, v2: Vector): Vector {
 
   return cp;
 }
+
+export function normalize(v: Vector): Vector {
+  const m = magnitude(v);
+  if (m === 0) {
+    throw new Error("Can't normalize a vector with 0 magnitude.");
+  }
+
+  return new Vector(v.x / m, v.y / m, v.z / m);
+}
