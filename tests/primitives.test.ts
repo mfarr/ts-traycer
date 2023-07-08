@@ -1,3 +1,4 @@
+import exp from "constants";
 import {
   Point,
   Vector,
@@ -9,6 +10,7 @@ import {
   negate,
   multiply,
   divide,
+  magnitude,
 } from "../src/app/primitives";
 
 const v = new Vector(1, -2, 3);
@@ -214,4 +216,31 @@ test("dividing a vector by a scalar should return the resulting vector", () => {
 
 test("dividing by zero should throw an error", () => {
   expect(() => divide(v, 0)).toThrowError("Coordinate divide by zero error.");
+});
+
+test("magnitude should return 1 for a unit vector", () => {
+  const expected = 1;
+
+  const v = new Vector(0, 1, 0);
+  const m = magnitude(v);
+
+  expect(m).toBeCloseTo(expected, 4);
+});
+
+test("magnitude should return correct value for a positive vector", () => {
+  const expected = Math.sqrt(14);
+
+  const v = new Vector(1, 2, 3);
+  const m = magnitude(v);
+
+  expect(m).toBeCloseTo(expected, 4);
+});
+
+test("magnitude should return correct value for a negative vector", () => {
+  const expected = Math.sqrt(14);
+
+  const v = new Vector(-1, -2, -3);
+  const m = magnitude(v);
+
+  expect(m).toBeCloseTo(expected, 4);
 });

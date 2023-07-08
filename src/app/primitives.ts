@@ -73,3 +73,12 @@ export function divide<T extends Coordinate>(c: T, d: number): Coordinate {
 
   return new Vector(c.x / d, c.y / d, c.z / d);
 }
+
+export function magnitude(v: Vector): number {
+  let magnitude = 0;
+
+  const sum = v.x ** 2 + v.y ** 2 + v.z ** 2 + v.w ** 2;
+  magnitude = Math.sqrt(sum);
+
+  return magnitude;
+}
