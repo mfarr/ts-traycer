@@ -11,6 +11,8 @@ import {
   multiply,
   divide,
   magnitude,
+  dot,
+  cross,
 } from "../src/app/primitives";
 
 const v = new Vector(1, -2, 3);
@@ -243,4 +245,28 @@ test("magnitude should return correct value for a negative vector", () => {
   const m = magnitude(v);
 
   expect(m).toBeCloseTo(expected, 4);
+});
+
+test("dot should return the dot product of two vectors", () => {
+  const expected = 20;
+
+  const v1 = new Vector(1, 2, 3);
+  const v2 = new Vector(2, 3, 4);
+
+  const dp = dot(v1, v2);
+
+  expect(dp).toBeCloseTo(expected);
+});
+
+test("cross should return the cross product of two vectors", () => {
+  const expected = new Vector(-1, 2, -1);
+
+  const v1 = new Vector(1, 2, 3);
+  const v2 = new Vector(2, 3, 4);
+
+  const cp = cross(v1, v2);
+
+  const eq = equal(cp, expected);
+
+  expect(eq).toBeTruthy();
 });
