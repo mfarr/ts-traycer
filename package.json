@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node ./dist/src/index.js",
-    "canon": "tsc && node ./dist/src/canon.js",
+    "cannon": "tsc && node ./dist/src/cannon.js",
     "test": "jest",
     "watch": "tsc --watch"
   },
