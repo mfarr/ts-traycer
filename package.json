@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsc && node ./dist/src/index.js",
     "cannon": "tsc && node ./dist/src/cannon.js",
+    "build": "tsc",
     "test": "jest",
     "watch": "tsc --watch"
   },
