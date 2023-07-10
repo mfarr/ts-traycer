@@ -1,3 +1,5 @@
+const PRECISION = 0.00001;
+
 export class Point {
   readonly w = 1;
 
@@ -47,7 +49,12 @@ export function subtract(c1: Coordinate, c2: Coordinate): Coordinate {
 }
 
 export function equal(c1: Coordinate, c2: Coordinate): boolean {
-  return c1.x === c2.x && c1.y === c2.y && c1.z === c2.z && c1.w === c2.w;
+  return (
+    Math.abs(c1.x - c2.x) < PRECISION &&
+    Math.abs(c1.y - c2.y) < PRECISION &&
+    Math.abs(c1.z - c2.z) < PRECISION &&
+    Math.abs(c1.w - c2.w) < PRECISION
+  );
 }
 
 export function negate<T extends Coordinate>(c: T): Coordinate {
