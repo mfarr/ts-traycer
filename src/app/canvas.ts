@@ -8,9 +8,9 @@ export class Canvas {
   private pixels: PixelMap;
 
   constructor(public readonly width: number, public readonly height: number) {
-    this.pixels = new Array<Array<Colour>>(width).fill(
-      new Array<Colour>(height).fill(new Colour(0, 0, 0))
-    );
+    this.pixels = new Array<Colour>(this.width)
+      .fill({ r: 0, g: 0, b: 0 })
+      .map(() => new Array<Colour>(this.height).fill({ r: 0, g: 0, b: 0 }));
   }
 
   public pixelAt(x: number, y: number): Colour {
