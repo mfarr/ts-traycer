@@ -42,3 +42,26 @@ test("generated PPMs should have the correcy body", () => {
 
   expect(body).toEqual(expected);
 });
+
+test("PPM lines longer than 70 characters should be split", () => {
+  canvas = new Canvas(10, 2);
+  for (let w = 0; w < canvas.width; w++) {
+    for (let h = 0; h < canvas.height; h++) {
+      canvas.writePixel(w, h, { r: 1, g: 0.8, b: 0.6 });
+    }
+  }
+
+  const image = new Image(canvas, 256);
+
+  const expected =
+    "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n" +
+    "153 255 204 153 255 204 153 255 204 153 255 204 153\n" +
+    "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n" +
+    "153 255 204 153 255 204 153 255 204 153 255 204 153";
+
+  const ppm = toPPM(image);
+
+  const body = ppm.split("\n").slice(3, 7).join("\n");
+
+  expect(body).toEqual(expected);
+});

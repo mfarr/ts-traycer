@@ -44,13 +44,24 @@ function generatePPMHeader(image: Image): string {
 
 function generatePPMBody(image: Image): string {
   let body = "";
+  const colours: Array<keyof Colour> = ["r", "g", "b"];
 
   for (let h = 0; h < image.height; h++) {
+    let row = "";
+
     for (let w = 0; w < image.width; w++) {
-      const c = image.pixelAt(w, h);
-      body += `${c.r} ${c.g} ${c.b} `;
+      const pixel = image.pixelAt(w, h);
+
+      colours.map((c) => {
+        if (row.length + pixel[c].toString().length > 70) {
+          body += `${row.trimEnd()}\n`;
+          row = "";
+        }
+        row += `${pixel[c]} `;
+      });
     }
-    body = body.trimEnd() + "\n";
+
+    body += row.trimEnd() + "\n";
   }
 
   return body.trimEnd();
