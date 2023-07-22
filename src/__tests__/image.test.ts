@@ -34,13 +34,33 @@ test("generated PPMs should have the correcy body", () => {
   const image = new Image(canvas, 256);
 
   const expected =
-    "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
+    "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n" +
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255";
 
   const ppm = toPPM(image);
 
   const body = ppm.split("\n").slice(3, 6).join("\n");
 
   expect(body).toEqual(expected);
+});
+
+test("generated PPMs should have the correct structure", () => {
+  canvas.writePixel(0, 0, { r: 1.5, g: 0, b: 0 });
+  canvas.writePixel(2, 1, { r: 0, g: 0.5, b: 0 });
+  canvas.writePixel(4, 2, { r: -0.5, g: 0, b: 1 });
+
+  const image = new Image(canvas, 256);
+
+  const expected =
+    "P3\n" +
+    "5 3\n" +
+    "255\n" +
+    "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n" +
+    "0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
+
+  const ppm = toPPM(image);
+
+  expect(ppm).toEqual(expected);
 });
 
 test("PPM lines longer than 70 characters should be split", () => {
