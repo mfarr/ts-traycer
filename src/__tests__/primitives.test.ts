@@ -141,7 +141,7 @@ test("subtracting a point from a vector should throw an error", () => {
   const v = new Vector(2, 2, 2);
 
   expect(() => subtract(v, p)).toThrowError(
-    "Subtraction would result in an invalid coordinate."
+    "Subtraction would result in an invalid coordinate.",
   );
 });
 
@@ -150,7 +150,7 @@ test("adding two points should throw an error", () => {
   const p2 = new Point(2, 2, 2);
 
   expect(() => add(p1, p2)).toThrowError(
-    "Addition would result in an invalid coordinate."
+    "Addition would result in an invalid coordinate.",
   );
 });
 

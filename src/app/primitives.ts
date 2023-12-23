@@ -1,13 +1,21 @@
 export class Point {
   readonly w = 1;
 
-  constructor(public x = 0, public y = 0, public z = 0) {}
+  constructor(
+    public x = 0,
+    public y = 0,
+    public z = 0,
+  ) {}
 }
 
 export class Vector {
   readonly w = 0;
 
-  constructor(public x = 0, public y = 0, public z = 0) {}
+  constructor(
+    public x = 0,
+    public y = 0,
+    public z = 0,
+  ) {}
 }
 
 export type Coordinate = Point | Vector;
@@ -93,7 +101,7 @@ export function cross(v1: Vector, v2: Vector): Vector {
   const cp = new Vector(
     v1.y * v2.z - v1.z * v2.y,
     v1.z * v2.x - v1.x * v2.z,
-    v1.x * v2.y - v1.y * v2.x
+    v1.x * v2.y - v1.y * v2.x,
   );
 
   return cp;

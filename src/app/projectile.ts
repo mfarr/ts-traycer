@@ -19,7 +19,7 @@ function tick(env: Environment, proj: Projectile): Projectile {
 
 export function fire(
   env: Environment,
-  proj: Projectile
+  proj: Projectile,
 ): { ticks: number; proj: Projectile } {
   let ticks = 0;
 
