@@ -13,7 +13,7 @@ import {
   dot,
   cross,
   normalize,
-} from "../src/app/primitives";
+} from "../app/primitives";
 
 const v = new Vector(1, -2, 3);
 const p = new Point(1, -2, 3);

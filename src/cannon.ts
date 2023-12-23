@@ -12,7 +12,7 @@ const proj: Projectile = {
 };
 
 console.log(
-  `Firing projectile: (${proj.position.x}, ${proj.position.y}, ${proj.position.z}) with velocity (${proj.velocity.x}, ${proj.velocity.y}, ${proj.velocity.z})`
+  `Firing projectile: (${proj.position.x}, ${proj.position.y}, ${proj.position.z}) with velocity (${proj.velocity.x}, ${proj.velocity.y}, ${proj.velocity.z})`,
 );
 
 console.log(`Gravity: (${env.gravity.x}, ${env.gravity.y}, ${env.gravity.z})`);
@@ -22,5 +22,5 @@ console.log(`Wind: (${env.wind.x}, ${env.wind.y}, ${env.wind.z})`);
 const results = fire(env, proj);
 
 console.log(
-  `It took ${results.ticks} ticks to for the projectile to hit the ground: (${results.proj.position.x}, ${results.proj.position.y}, ${results.proj.position.z})`
+  `It took ${results.ticks} ticks to for the projectile to hit the ground: (${results.proj.position.x}, ${results.proj.position.y}, ${results.proj.position.z})`,
 );
